@@ -13,6 +13,7 @@ if (isset($_POST['tambah_buku'])) {
     $cek_query = "SELECT id_buku FROM buku WHERE id_buku = '$id_buku'";
     $cek_result = mysqli_query($koneksi, $cek_query);
 
+    // Cek apakah id sudah ada di data base
     if (mysqli_num_rows($cek_result) > 0) {
         echo "<script>
         alert('Gagal menambahkan buku! ID buku sudah ada di database.'); 
@@ -21,6 +22,7 @@ if (isset($_POST['tambah_buku'])) {
         exit();
     }
 
+    // Cek jika input harga user dibawah 0
     if ($harga < 1) {
         echo "<script>
         alert('Tidak bisa menambahkah kkarena harga tidak boleh dibawah angka 0!'); window.location.href='admin.php';
@@ -28,11 +30,11 @@ if (isset($_POST['tambah_buku'])) {
         exit();
     }
 
+    // melakukan penambahan buku
     $query = "INSERT INTO buku (id_buku,kategori, nama_buku, harga, stok, id_penerbit) 
               VALUES ('$id_buku' , '$kategori', '$nama', $harga, $stok, '$penerbit')";
 
-    $query = "DELETE FROM penerbit WHERE id_penerbit = '$id'";
-
+    // cek jika data berhasil menambahakan buku
     if (mysqli_query($koneksi, $query)) {
         echo "<script>
         alert('Buku berhasil ditambah!'); 
@@ -55,7 +57,9 @@ if (isset($_POST['edit_buku'])) {
     $nama_buku = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['nama_buku']));
     $harga = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['harga']));
     $stok = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['stok']));
+    $penerbit = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['id_penerbit']));
 
+    // Cek apakah id sudah ada di data base
     $cek_query = "SELECT id_buku FROM buku WHERE id_buku = '$id_buku'";
     $cek_result = mysqli_query($koneksi, $cek_query);
 
@@ -67,6 +71,7 @@ if (isset($_POST['edit_buku'])) {
         exit();
     }
 
+    // Cek apakah apakah harga input user tidak boleh menjadi 0
     if ($harga < 1) {
         echo "<script>
         alert('Tidak bisa menambahkah kkarena harga tidak boleh dibawah angka 0!'); window.location.href='admin.php';
@@ -74,13 +79,16 @@ if (isset($_POST['edit_buku'])) {
         exit();
     }
 
+    // melakukan Update Buku
     $query = "UPDATE buku SET id_buku='$id_buku',kategori='$kategori', nama_buku='$nama_buku', harga=$harga, stok=$stok WHERE id_buku='$id_buku_lama'";
 
+    // Jika Berhasil
     if (mysqli_query($koneksi, $query)) {
         echo "<script>
         alert('Buku berhasil diedit!.'); 
         window.location.href='admin.php';
         </script>";
+        // Jika Gagal
     } else {
         echo "<script>
         alert('Buku gagal diedit!'); 
@@ -92,15 +100,18 @@ if (isset($_POST['edit_buku'])) {
 // Hapus Buku
 if (isset($_POST['hapus_buku'])) {
     $id_buku = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['id_buku']));
-    $query = "DELETE FROM buku WHERE id_buku = '$id_buku'";
-    $result = mysqli_query($koneksi, $query);
 
+    // Melakukan Hapus Id
+    $query = "DELETE FROM buku WHERE id_buku = '$id_buku'";
+
+    // Jika Berhasil
     if (mysqli_query($koneksi, $query)) {
         echo "<script>
         alert('Buku berhasil dihapus!.'); 
         window.location.href='admin.php';
         </script>";
     } else {
+        // Jika Gagal
         echo "<script>
         alert('Buku gagal dihapus!.'); 
         window.location.href='admin.php';
@@ -118,6 +129,7 @@ if (isset($_POST['tambah_penerbit'])) {
     $kota = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['kota']));
     $telepon = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['telepon']));
 
+    // cek apakah user input ada yang sama di dalam database
     $cek_query = "SELECT id_penerbit FROM penerbit WHERE id_penerbit = '$id_penerbit'";
     $cek_result = mysqli_query($koneksi, $cek_query);
 
@@ -129,15 +141,17 @@ if (isset($_POST['tambah_penerbit'])) {
         exit();
     }
 
-
+    // memasukkan penerbit ke database
     $query = "INSERT INTO penerbit (id_penerbit,nama_penerbit, alamat, kota, telepon) VALUES ('$id_penerbit','$nama_penerbit', '$alamat', '$kota','$telepon')";
 
+    // jika berhasil
     if (mysqli_query($koneksi, $query)) {
         echo "<script>
         alert('Penerbit berhasil menambah.'); 
         window.location.href='admin.php';
         </script>";
     } else {
+        // jika gagal
         echo "<script>
         alert('Gagal menambah penerbit!'); 
         window.location.href='admin.php';

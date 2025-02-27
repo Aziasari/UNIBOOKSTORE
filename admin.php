@@ -7,6 +7,7 @@ $penerbit_result = mysqli_query($koneksi, "SELECT * FROM penerbit");
 // Ambil  buku
 $buku_result = mysqli_query(
     $koneksi,
+    // Ambil  ambil buku dan ambil beberapa is tabel penerbit
     "SELECT * FROM buku  JOIN penerbit ON buku.id_penerbit = penerbit.id_penerbit"
 ); ?>
 
@@ -16,10 +17,13 @@ $buku_result = mysqli_query(
 <head>
     <meta charset="UTF-8">
     <title>UNIBOOKSTORE - Toko Buku Online</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css2.css">
 
-    <!-- ICon -->
+    <!-- link boostrap online -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ICon boostrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <!-- Css -->
@@ -62,7 +66,6 @@ $buku_result = mysqli_query(
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php
                     $nomor = 1;
                     while ($row = mysqli_fetch_assoc($penerbit_result)) { ?>
@@ -150,7 +153,14 @@ $buku_result = mysqli_query(
                         </div>
 
                     <?php $nomor++;
-                    } ?>
+                    }
+                    if (mysqli_num_rows($penerbit_result) == 0) :  ?>
+                        <tr>
+                            <td>
+                            <td colspan="7" class="text-center">Tidak ada data penerbit</td>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
 
                 </tbody>
             </table>
@@ -224,6 +234,18 @@ $buku_result = mysqli_query(
                                                 <label class="form-label">Stok</label>
                                                 <input type="number" class="form-control" name="stok" value="<?php echo $row['stok']; ?>" required>
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="id_penerbit" class="form-label">Penerbit</label>
+                                                <select class="form-control" id="id_penerbit" name="id_penerbit" required>
+                                                    <?php
+                                                    $query_penerbittambah = "SELECT id_penerbit, nama_penerbit FROM penerbit";
+                                                    $result_penerbit = mysqli_query($koneksi, $query_penerbittambah);
+                                                    while ($row_penerbit = mysqli_fetch_assoc($result_penerbit)) {
+                                                        echo "<option value='" . $row_penerbit['id_penerbit'] . "'>" . $row_penerbit['nama_penerbit'] . "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 <button type="submit" name="edit_buku" class="btn btn-primary">Simpan Perubahan</button>
@@ -256,7 +278,15 @@ $buku_result = mysqli_query(
                             </div>
                         </div>
                     <?php $nomor++;
-                    } ?>
+                    }
+                    if (mysqli_num_rows($penerbit_result) == 0) : ?>
+                        <tr>
+                            <td>
+                            <td colspan="7" class="text-center">Tidak ada data buku</td>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
                 </tbody>
             </table>
         </div>
