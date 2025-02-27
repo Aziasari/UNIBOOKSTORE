@@ -48,7 +48,6 @@ if (isset($_POST['tambah_buku'])) {
     }
 }
 
-
 //  Edit Buku
 if (isset($_POST['edit_buku'])) {
     $id_buku_lama = $_POST['id_buku_lama'];
@@ -57,45 +56,50 @@ if (isset($_POST['edit_buku'])) {
     $nama_buku = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['nama_buku']));
     $harga = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['harga']));
     $stok = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['stok']));
-    $penerbit = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['id_penerbit']));
+    $id_penerbit = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['id_penerbit']));
 
-    // Cek apakah id sudah ada di data base
-    $cek_query = "SELECT id_buku FROM buku WHERE id_buku = '$id_buku'";
-    $cek_result = mysqli_query($koneksi, $cek_query);
+    // Cek apakah ID Buku baru sudah ada di database, kecuali jika ID tidak berubah
+    if ($id_buku !== $id_buku_lama) {
+        $cek_query = "SELECT id_buku FROM buku WHERE id_buku = '$id_buku'";
+        $cek_result = mysqli_query($koneksi, $cek_query);
 
-    if (mysqli_num_rows($cek_result) > 0) {
+        if (mysqli_num_rows($cek_result) > 0) {
+            echo "<script>
+                alert('Gagal mengubah Buku! ID Buku sudah digunakan oleh Buku lain.'); 
+                window.location.href='admin.php';
+            </script>";
+            exit();
+        }
+    }
+
+    // Cek apakah harga input user valid (tidak boleh 0 atau negatif)
+    if ($harga < 1) {
         echo "<script>
-        alert('Gagal menambahkan buku! ID buku sudah ada di database.'); 
-        window.location.href='admin.php';
+            alert('Tidak bisa menambahkan karena harga tidak boleh di bawah angka 1!'); 
+            window.location.href='admin.php';
         </script>";
         exit();
     }
 
-    // Cek apakah apakah harga input user tidak boleh menjadi 0
-    if ($harga < 1) {
-        echo "<script>
-        alert('Tidak bisa menambahkah kkarena harga tidak boleh dibawah angka 0!'); window.location.href='admin.php';
-       </script>";
-        exit();
-    }
-
-    // melakukan Update Buku
-    $query = "UPDATE buku SET id_buku='$id_buku',kategori='$kategori', nama_buku='$nama_buku', harga=$harga, stok=$stok,    WHERE id_buku='$id_buku_lama'";
+    // Lakukan Update Buku
+    $query = "UPDATE buku 
+              SET id_buku='$id_buku', kategori='$kategori', nama_buku='$nama_buku', harga=$harga, stok=$stok, id_penerbit='$id_penerbit' 
+              WHERE id_buku='$id_buku_lama'";
 
     // Jika Berhasil
     if (mysqli_query($koneksi, $query)) {
         echo "<script>
-        alert('Buku berhasil diedit!.'); 
-        window.location.href='admin.php';
+            alert('Buku berhasil diedit!'); 
+            window.location.href='admin.php';
         </script>";
-        // Jika Gagal
     } else {
         echo "<script>
-        alert('Buku gagal diedit!'); 
-        window.location.href='admin.php';
+            alert('Buku gagal diedit! Error: " . mysqli_error($koneksi) . "'); 
+            window.location.href='admin.php';
         </script>";
     }
 }
+
 
 // Hapus Buku
 if (isset($_POST['hapus_buku'])) {
@@ -184,13 +188,8 @@ if (isset($_POST['edit_penerbit'])) {
     }
 
     // Update data penerbit
-    $update_query = "UPDATE penerbit SET 
-                    id_penerbit = '$id', 
-                    nama_penerbit = '$nama', 
-                    alamat = '$alamat', 
-                    kota = '$kota', 
-                    telepon = '$telepon' 
-                    WHERE id_penerbit = '$old_id'";
+    $update_query = "UPDATE penerbit SET   id_penerbit = '$id',  nama_penerbit = '$nama',  alamat = '$alamat',  kota = '$kota', 
+     telepon = '$telepon'   WHERE id_penerbit = '$old_id'";
 
     if (mysqli_query($koneksi, $update_query)) {
         echo "<script>
