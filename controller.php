@@ -80,7 +80,7 @@ if (isset($_POST['edit_buku'])) {
     }
 
     // melakukan Update Buku
-    $query = "UPDATE buku SET id_buku='$id_buku',kategori='$kategori', nama_buku='$nama_buku', harga=$harga, stok=$stok WHERE id_buku='$id_buku_lama'";
+    $query = "UPDATE buku SET id_buku='$id_buku',kategori='$kategori', nama_buku='$nama_buku', harga=$harga, stok=$stok,    WHERE id_buku='$id_buku_lama'";
 
     // Jika Berhasil
     if (mysqli_query($koneksi, $query)) {
