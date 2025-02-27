@@ -1,0 +1,31 @@
+/* Impor font Roboto dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif; /* Mengatur seluruh font menjadi Roboto */
+    margin: 0; /* Menghilangkan margin default */
+    padding: 0; /* Menghilangkan padding default */
+    background-color: #f5f5f5; /* Warna background agar tidak terlalu putih mencolok */
+    color: #333; /* Warna teks agar lebih nyaman dibaca */
+    line-height: 1.6; /* Memberikan ruang antar baris */
+}
+
+#navbar {
+    padding: 15px 0px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+.btn-custom {
+    transition: all 0.3s;
+}
+.btn-custom:hover {
+    transform: scale(1.05);
+}
