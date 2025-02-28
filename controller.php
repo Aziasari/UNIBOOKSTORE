@@ -123,8 +123,6 @@ if (isset($_POST['hapus_buku'])) {
     }
 }
 
-
-
 // tambah penerbit
 if (isset($_POST['tambah_penerbit'])) {
     $id_penerbit = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['id_penerbit']));

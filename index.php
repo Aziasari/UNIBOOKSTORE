@@ -25,7 +25,7 @@ $result = mysqli_query($koneksi, $query);
 
 <body class="bg-white text-dark">
     <!-- Navbar -->
-    <nav id="navbar" class="navbar bg-dark navbar-expand-lg navbar-dark fixed-top">
+    <nav id="navbar" class="navbar navbar-dark fixed-top">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand fw-bold text-white" href="#">UNIBOOKSTORE</a>
             <div class="d-flex align-items-center">
@@ -149,6 +149,17 @@ $result = mysqli_query($koneksi, $query);
     <!-- Footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener("scroll", function() {
+            var navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("bg-dark");
+            } else {
+                navbar.classList.remove("bg-dark");
+            }
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
