@@ -71,9 +71,9 @@ $result = mysqli_query($koneksi, $query);
                         Ada beberapa Alasan toko kami cocok untuk anda
                     </p>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> <span>Kami Selalu Menyediakan Buku Populer Setiap Bulan.</span></li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> <span>Kami Selalu Memantau Trend Buku Yang Populer setiap musim.</span></li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> <span>Kami menyediakan beberagai kategori buku yang cocok untuk anak muda dan pelajar</span></li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill "></i> <span>Kami Selalu Menyediakan Buku Populer Setiap Bulan.</span></li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill "></i> <span>Kami Selalu Memantau Trend Buku Yang Populer setiap musim.</span></li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill "></i> <span>Kami menyediakan beberagai kategori buku yang cocok untuk anak muda dan pelajar</span></li>
                     </ul>
                     <button class="btn btn-dark mt-3 px-4 py-2">
                         <a href="#daftarbuku" class="text-white text-decoration-none">Lebih Lanjut</a>
@@ -96,7 +96,7 @@ $result = mysqli_query($koneksi, $query);
 
                     <!-- Search Bar -->
                     <form method="GET" class="d-flex position-relative shadow-sm" data-aos="fade-left">
-                        <input type="text" name="search" class="form-control form-control-lg rounded-pill ps-4"
+                        <input type="text" name="search" class="form-control rounded-pill ps-4"
                             id="search" placeholder="Cari Buku..." value="<?php echo $search; ?>">
                         <button type="submit" class="btn btn-dark rounded-pill ms-2 px-4">
                             <i class="bi bi-search"></i> Cari
@@ -153,7 +153,7 @@ $result = mysqli_query($koneksi, $query);
     <script>
         window.addEventListener("scroll", function() {
             var navbar = document.getElementById("navbar");
-            if (window.scrollY > 50) {
+            if (window.scrollY > 500) {
                 navbar.classList.add("bg-dark");
             } else {
                 navbar.classList.remove("bg-dark");

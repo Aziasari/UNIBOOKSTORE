@@ -377,7 +377,10 @@ $buku_result = mysqli_query(
                                 ?>
                             </select>
                         </div>
-                        <button type="submit" name="tambah_buku" class="btn btn-success">Tambah</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary " name="tambah_buku">Simpan</button>
+                        </div>
                     </form>
                 </div>
 
